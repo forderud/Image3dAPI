@@ -31,10 +31,10 @@ namespace TestViewer
             ProbeInfo.Text = "";
             InstanceUID.Text = "";
 
-
-            ImageXY.Source = null;
-            ImageXZ.Source = null;
-            ImageYZ.Source = null;
+            // clear image slices (use transparent 1x1 bitmaps to ensure that they are properly sized on screen)
+            ImageXY.Source = new WriteableBitmap(1, 1, 96.0, 96.0, PixelFormats.Bgra32, null);
+            ImageXZ.Source = new WriteableBitmap(1, 1, 96.0, 96.0, PixelFormats.Bgra32, null);
+            ImageYZ.Source = new WriteableBitmap(1, 1, 96.0, 96.0, PixelFormats.Bgra32, null);
         }
 
         private void LoadBtn_Click(object sender, RoutedEventArgs e)
@@ -109,10 +109,6 @@ namespace TestViewer
         {
             Debug.Assert(m_source != null);
 
-            // retrieve image volume
-            const ushort HORIZONTAL_RES = 128;
-            const ushort VERTICAL_RES = 128;
-
             Cart3dGeom bbox = m_source.GetBoundingBox();
             if (Math.Abs(bbox.dir3_y) > Math.Abs(bbox.dir2_y)){
                 // swap 2nd & 3rd axis, so that the 2nd becomes predominately "Y"
@@ -129,7 +125,7 @@ namespace TestViewer
             bboxXY.dir3_x = 0;
             bboxXY.dir3_y = 0;
             bboxXY.dir3_z = 0;
-            Image3d imageXY = m_source.GetFrame(frame, bboxXY, new ushort[] { HORIZONTAL_RES, VERTICAL_RES, 1 });
+            Image3d imageXY = m_source.GetFrame(frame, bboxXY, new ushort[] { (ushort)ImageXY.ActualWidth, (ushort)ImageXY.ActualHeight, 1 });
 
             // get XZ plane (assumes 1st axis is "X" and 3rd is "Z")
             Cart3dGeom bboxXZ = bbox;
@@ -142,7 +138,7 @@ namespace TestViewer
             bboxXZ.dir3_x = 0; 
             bboxXZ.dir3_y = 0;
             bboxXZ.dir3_z = 0;
-            Image3d imageXZ = m_source.GetFrame(frame, bboxXZ, new ushort[] { HORIZONTAL_RES, VERTICAL_RES, 1 });
+            Image3d imageXZ = m_source.GetFrame(frame, bboxXZ, new ushort[] { (ushort)ImageXZ.ActualWidth, (ushort)ImageXZ.ActualHeight, 1 });
 
             // get YZ plane (assumes 2nd axis is "Y" and 3rd is "Z")
             Cart3dGeom bboxYZ = bbox;
@@ -158,7 +154,7 @@ namespace TestViewer
             bboxYZ.dir3_x = 0; 
             bboxYZ.dir3_y = 0;
             bboxYZ.dir3_z = 0;
-            Image3d imageYZ = m_source.GetFrame(frame, bboxYZ, new ushort[] { HORIZONTAL_RES, VERTICAL_RES, 1 });
+            Image3d imageYZ = m_source.GetFrame(frame, bboxYZ, new ushort[] { (ushort)ImageYZ.ActualWidth, (ushort)ImageYZ.ActualHeight, 1 });
 
             FrameTime.Text = "Frame time: " + imageXY.time;
 
