@@ -80,7 +80,7 @@ Image3dSource::Image3dSource() {
             Image3d tmp;
             {
                 tmp.time = f*(duration/numFrames) + startTime;
-                tmp.format = FORMAT_U8;
+                tmp.format = IMAGE_FORMAT_U8;
                 for (size_t i = 0; i < 3; ++i)
                     tmp.dims[i] = dims[i];
                 CComSafeArray<BYTE> data(static_cast<unsigned int>(img_buf.size()));
@@ -201,7 +201,7 @@ Image3d Image3dSource::SampleFrame (const Image3d & frame, Cart3dGeom out_geom, 
     Image3d result;
     {
         result.time = frame.time;
-        result.format = FORMAT_U8;
+        result.format = IMAGE_FORMAT_U8;
         for (size_t i = 0; i < 3; ++i)
             result.dims[i] = max_res[i];
         CComSafeArray<BYTE> data(static_cast<unsigned int>(img_buf.size()));
