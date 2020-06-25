@@ -165,22 +165,13 @@ typedef [
              "All units are in meter [m] with orthogonal axes forming a right-handed coordinate system.\n"
              "Coordinates are relative to the tip of the transducer, with origin at the center of the aperture. The X- & Z-axes follow the 1st and 2nd aperture axes, and the Y-axis point into the imaged body.")]
 struct Cart3dGeom {
-    // coordinates are not arrays to avoid "warning MIDL2492: structure containing array of float/double might not be marshalled correctly when using type library marshalling"
-    float origin_x; ///< coordinate of 1st sample
-    float origin_y;
-    float origin_z;
+    float origin[3]; ///< coordinate of 1st sample
 
-    float dir1_x;   ///< 1st direction vector (from first to last column)
-    float dir1_y;
-    float dir1_z;
+    float dir1[3];   ///< 1st direction vector (from first to last column)
 
-    float dir2_x;   ///< 2nd direction vector (from first to last row)
-    float dir2_y;
-    float dir2_z;
+    float dir2[3];   ///< 2nd direction vector (from first to last row)
 
-    float dir3_x;   ///< 3rd direction vector (from first to last plane)
-    float dir3_y;
-    float dir3_z;
+    float dir3[3];   ///< 3rd direction vector (from first to last plane)
 } Cart3dGeom;
 
 cpp_quote("")
