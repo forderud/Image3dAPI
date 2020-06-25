@@ -223,10 +223,10 @@ static vec3f PosToCoord (vec3f origin, vec3f dir1, vec3f dir2, vec3f dir3, const
 
 
 static std::tuple<vec3f, vec3f, vec3f, vec3f> FromCart3dGeom (Cart3dGeom geom) {
-    const vec3f origin(geom.origin_x, geom.origin_y, geom.origin_z);
-    const vec3f dir1(geom.dir1_x, geom.dir1_y, geom.dir1_z);
-    const vec3f dir2(geom.dir2_x, geom.dir2_y, geom.dir2_z);
-    const vec3f dir3(geom.dir3_x, geom.dir3_y, geom.dir3_z);
+    const vec3f origin(geom.origin[0], geom.origin[1], geom.origin[2]);
+    const vec3f dir1(geom.dir1[0], geom.dir1[1], geom.dir1[2]);
+    const vec3f dir2(geom.dir2[0], geom.dir2[1], geom.dir2[2]);
+    const vec3f dir3(geom.dir3[0], geom.dir3[1], geom.dir3[2]);
 
     return std::make_tuple(origin, dir1, dir2, dir3);
 }
@@ -235,21 +235,21 @@ static std::tuple<vec3f, vec3f, vec3f, vec3f> FromCart3dGeom (Cart3dGeom geom) {
 static Cart3dGeom ToCart3dGeom (vec3f origin, vec3f dir1, vec3f dir2, vec3f dir3) {
     Cart3dGeom geom = {};
     {
-        geom.origin_x = origin.x;
-        geom.origin_y = origin.y;
-        geom.origin_z = origin.z;
+        geom.origin[0] = origin.x;
+        geom.origin[1] = origin.y;
+        geom.origin[2] = origin.z;
 
-        geom.dir1_x = dir1.x;
-        geom.dir1_y = dir1.y;
-        geom.dir1_z = dir1.z;
+        geom.dir1[0] = dir1.x;
+        geom.dir1[1] = dir1.y;
+        geom.dir1[2] = dir1.z;
 
-        geom.dir2_x = dir2.x;
-        geom.dir2_y = dir2.y;
-        geom.dir2_z = dir2.z;
+        geom.dir2[0] = dir2.x;
+        geom.dir2[1] = dir2.y;
+        geom.dir2[2] = dir2.z;
 
-        geom.dir3_x = dir3.x;
-        geom.dir3_y = dir3.y;
-        geom.dir3_z = dir3.z;
+        geom.dir3[0] = dir3.x;
+        geom.dir3[1] = dir3.y;
+        geom.dir3[2] = dir3.z;
     }
     return geom;
 }

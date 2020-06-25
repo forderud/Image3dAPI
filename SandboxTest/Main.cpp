@@ -54,10 +54,10 @@ void ParseSource (IImage3dSource & source, bool verbose, bool profile) {
 
     if (verbose) {
         std::cout << "Bounding box:\n";
-        std::cout << "  Origin: " << bbox.origin_x << ", " << bbox.origin_y << ", " << bbox.origin_z << "\n";
-        std::cout << "  Dir1:   " << bbox.dir1_x   << ", " << bbox.dir1_y   << ", " << bbox.dir1_z   << "\n";
-        std::cout << "  Dir2:   " << bbox.dir2_x   << ", " << bbox.dir2_y   << ", " << bbox.dir2_z   << "\n";
-        std::cout << "  Dir3:   " << bbox.dir3_x   << ", " << bbox.dir3_y   << ", " << bbox.dir3_z   << "\n";
+        std::cout << "  Origin: " << bbox.origin[0] << ", " << bbox.origin[1] << ", " << bbox.origin[2] << "\n";
+        std::cout << "  Dir1:   " << bbox.dir1[0]   << ", " << bbox.dir1[1]   << ", " << bbox.dir1[2]   << "\n";
+        std::cout << "  Dir2:   " << bbox.dir2[0]   << ", " << bbox.dir2[1]   << ", " << bbox.dir2[2]   << "\n";
+        std::cout << "  Dir3:   " << bbox.dir3[0]   << ", " << bbox.dir3[1]   << ", " << bbox.dir3[2]   << "\n";
     }
 
     unsigned int frame_count = 0;

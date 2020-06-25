@@ -33,10 +33,10 @@ if __name__=="__main__":
 
     # get bounding box
     bbox = source.GetBoundingBox()
-    origin = [bbox.origin_x, bbox.origin_y, bbox.origin_z]
-    dir1   = [bbox.dir1_x,   bbox.dir1_y,   bbox.dir1_z]
-    dir2   = [bbox.dir2_x,   bbox.dir2_y,   bbox.dir2_z]
-    dir3   = [bbox.dir3_x,   bbox.dir3_y,   bbox.dir3_z]
+    origin = [bbox.origin[0], bbox.origin[1], bbox.origin[2]]
+    dir1   = [bbox.dir1[0],   bbox.dir1[1],   bbox.dir1[2]]
+    dir2   = [bbox.dir2[0],   bbox.dir2[1],   bbox.dir2[2]]
+    dir3   = [bbox.dir3[0],   bbox.dir3[1],   bbox.dir3[2]]
 
     color_map = source.GetColorMap()
     print("Color-map length: "+str(len(color_map)))

@@ -275,11 +275,11 @@ namespace TestViewer
             Debug.Assert(m_source != null);
 
             Cart3dGeom bbox = m_source.GetBoundingBox();
-            if (Math.Abs(bbox.dir3_y) > Math.Abs(bbox.dir2_y)) {
+            if (Math.Abs(bbox.dir3[1]) > Math.Abs(bbox.dir2[1])) {
                 // swap 2nd & 3rd axis, so that the 2nd becomes predominately "Y"
-                SwapVals(ref bbox.dir2_x, ref bbox.dir3_x);
-                SwapVals(ref bbox.dir2_y, ref bbox.dir3_y);
-                SwapVals(ref bbox.dir2_z, ref bbox.dir3_z);
+                SwapVals(ref bbox.dir2[0], ref bbox.dir3[0]);
+                SwapVals(ref bbox.dir2[1], ref bbox.dir3[1]);
+                SwapVals(ref bbox.dir2[2], ref bbox.dir3[2]);
             }
 
             // extend bounding-box axes, so that dir1, dir2 & dir3 have equal length
@@ -287,39 +287,39 @@ namespace TestViewer
 
             // get XY plane (assumes 1st axis is "X" and 2nd is "Y")
             m_bboxXY = bbox;
-            m_bboxXY.origin_x = m_bboxXY.origin_x + m_bboxXY.dir3_x / 2;
-            m_bboxXY.origin_y = m_bboxXY.origin_y + m_bboxXY.dir3_y / 2;
-            m_bboxXY.origin_z = m_bboxXY.origin_z + m_bboxXY.dir3_z / 2;
-            m_bboxXY.dir3_x = 0;
-            m_bboxXY.dir3_y = 0;
-            m_bboxXY.dir3_z = 0;
+            m_bboxXY.origin[0] = m_bboxXY.origin[0] + m_bboxXY.dir3[0] / 2;
+            m_bboxXY.origin[1] = m_bboxXY.origin[1] + m_bboxXY.dir3[1] / 2;
+            m_bboxXY.origin[2] = m_bboxXY.origin[2] + m_bboxXY.dir3[2] / 2;
+            m_bboxXY.dir3[0] = 0;
+            m_bboxXY.dir3[1] = 0;
+            m_bboxXY.dir3[2] = 0;
 
             // get XZ plane (assumes 1st axis is "X" and 3rd is "Z")
             m_bboxXZ = bbox;
-            m_bboxXZ.origin_x = m_bboxXZ.origin_x + m_bboxXZ.dir2_x / 2;
-            m_bboxXZ.origin_y = m_bboxXZ.origin_y + m_bboxXZ.dir2_y / 2;
-            m_bboxXZ.origin_z = m_bboxXZ.origin_z + m_bboxXZ.dir2_z / 2;
-            m_bboxXZ.dir2_x = m_bboxXZ.dir3_x;
-            m_bboxXZ.dir2_y = m_bboxXZ.dir3_y;
-            m_bboxXZ.dir2_z = m_bboxXZ.dir3_z;
-            m_bboxXZ.dir3_x = 0;
-            m_bboxXZ.dir3_y = 0;
-            m_bboxXZ.dir3_z = 0;
+            m_bboxXZ.origin[0] = m_bboxXZ.origin[0] + m_bboxXZ.dir2[0] / 2;
+            m_bboxXZ.origin[1] = m_bboxXZ.origin[1] + m_bboxXZ.dir2[1] / 2;
+            m_bboxXZ.origin[2] = m_bboxXZ.origin[2] + m_bboxXZ.dir2[2] / 2;
+            m_bboxXZ.dir2[0] = m_bboxXZ.dir3[0];
+            m_bboxXZ.dir2[1] = m_bboxXZ.dir3[1];
+            m_bboxXZ.dir2[2] = m_bboxXZ.dir3[2];
+            m_bboxXZ.dir3[0] = 0;
+            m_bboxXZ.dir3[1] = 0;
+            m_bboxXZ.dir3[2] = 0;
 
             // get ZY plane (assumes 2nd axis is "Y" and 3rd is "Z")
             m_bboxZY = bbox;
-            m_bboxZY.origin_x = bbox.origin_x + bbox.dir1_x / 2;
-            m_bboxZY.origin_y = bbox.origin_y + bbox.dir1_y / 2;
-            m_bboxZY.origin_z = bbox.origin_z + bbox.dir1_z / 2;
-            m_bboxZY.dir1_x = bbox.dir3_x;
-            m_bboxZY.dir1_y = bbox.dir3_y;
-            m_bboxZY.dir1_z = bbox.dir3_z;
-            m_bboxZY.dir2_x = bbox.dir2_x;
-            m_bboxZY.dir2_y = bbox.dir2_y;
-            m_bboxZY.dir2_z = bbox.dir2_z;
-            m_bboxZY.dir3_x = 0;
-            m_bboxZY.dir3_y = 0;
-            m_bboxZY.dir3_z = 0;
+            m_bboxZY.origin[0] = bbox.origin[0] + bbox.dir1[0] / 2;
+            m_bboxZY.origin[1] = bbox.origin[1] + bbox.dir1[1] / 2;
+            m_bboxZY.origin[2] = bbox.origin[2] + bbox.dir1[2] / 2;
+            m_bboxZY.dir1[0] = bbox.dir3[0];
+            m_bboxZY.dir1[1] = bbox.dir3[1];
+            m_bboxZY.dir1[2] = bbox.dir3[2];
+            m_bboxZY.dir2[0] = bbox.dir2[0];
+            m_bboxZY.dir2[1] = bbox.dir2[1];
+            m_bboxZY.dir2[2] = bbox.dir2[2];
+            m_bboxZY.dir3[0] = 0;
+            m_bboxZY.dir3[1] = 0;
+            m_bboxZY.dir3[2] = 0;
         }
 
         private void DrawSlices (uint frame)
@@ -390,11 +390,11 @@ namespace TestViewer
         static float VecLen(Cart3dGeom g, int idx)
         {
             if (idx == 1)
-                return VecLen(g.dir1_x, g.dir1_y, g.dir1_z);
+                return VecLen(g.dir1[0], g.dir1[1], g.dir1[2]);
             else if (idx == 2)
-                return VecLen(g.dir2_x, g.dir2_y, g.dir2_z);
+                return VecLen(g.dir2[0], g.dir2[1], g.dir2[2]);
             else if (idx == 3)
-                return VecLen(g.dir3_x, g.dir3_y, g.dir3_z);
+                return VecLen(g.dir3[0], g.dir3[1], g.dir3[2]);
 
             throw new Exception("unsupported direction index");
         }
@@ -413,46 +413,46 @@ namespace TestViewer
             {
                 float delta = max_len - dir1_len;
                 float dx, dy, dz;
-                ScaleVector(g.dir1_x, g.dir1_y, g.dir1_z, delta, out dx, out dy, out dz);
+                ScaleVector(g.dir1[0], g.dir1[1], g.dir1[2], delta, out dx, out dy, out dz);
                 // scale up dir1 so that it becomes the same length as the other axes
-                g.dir1_x += dx;
-                g.dir1_y += dy;
-                g.dir1_z += dz;
+                g.dir1[0] += dx;
+                g.dir1[1] += dy;
+                g.dir1[2] += dz;
                 // move origin to keep the bounding-box centered
-                g.origin_x -= dx/2;
-                g.origin_y -= dy/2;
-                g.origin_z -= dz/2;
+                g.origin[0] -= dx/2;
+                g.origin[1] -= dy/2;
+                g.origin[2] -= dz/2;
             }
 
             if (dir2_len < max_len)
             {
                 float delta = max_len - dir2_len;
                 float dx, dy, dz;
-                ScaleVector(g.dir2_x, g.dir2_y, g.dir2_z, delta, out dx, out dy, out dz);
+                ScaleVector(g.dir2[0], g.dir2[1], g.dir2[2], delta, out dx, out dy, out dz);
                 // scale up dir2 so that it becomes the same length as the other axes
-                g.dir2_x += dx;
-                g.dir2_y += dy;
-                g.dir2_z += dz;
+                g.dir2[0] += dx;
+                g.dir2[1] += dy;
+                g.dir2[2] += dz;
                 // move origin to keep the bounding-box centered
-                g.origin_x -= dx / 2;
-                g.origin_y -= dy / 2;
-                g.origin_z -= dz / 2;
+                g.origin[0] -= dx / 2;
+                g.origin[1] -= dy / 2;
+                g.origin[2] -= dz / 2;
             }
 
             if (dir3_len < max_len)
             {
                 float delta = max_len - dir3_len;
                 float dx, dy, dz;
-                ScaleVector(g.dir3_x, g.dir3_y, g.dir3_z, delta, out dx, out dy, out dz);
+                ScaleVector(g.dir3[0], g.dir3[1], g.dir3[2], delta, out dx, out dy, out dz);
                 // scale up dir3 so that it becomes the same length as the other axes
                 float factor = max_len / dir3_len;
-                g.dir3_x += dx;
-                g.dir3_y += dy;
-                g.dir3_z += dz;
+                g.dir3[0] += dx;
+                g.dir3[1] += dy;
+                g.dir3[2] += dz;
                 // move origin to keep the bounding-box centered
-                g.origin_x -= dx / 2;
-                g.origin_y -= dy / 2;
-                g.origin_z -= dz / 2;
+                g.origin[0] -= dx / 2;
+                g.origin[1] -= dy / 2;
+                g.origin[2] -= dz / 2;
             }
         }
 
