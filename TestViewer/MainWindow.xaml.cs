@@ -286,7 +286,7 @@ namespace TestViewer
             ExtendBoundingBox(ref bbox);
 
             // get XY plane (assumes 1st axis is "X" and 2nd is "Y")
-            m_bboxXY = bbox;
+            m_bboxXY = CloneGeom(bbox);
             m_bboxXY.origin[0] = m_bboxXY.origin[0] + m_bboxXY.dir3[0] / 2;
             m_bboxXY.origin[1] = m_bboxXY.origin[1] + m_bboxXY.dir3[1] / 2;
             m_bboxXY.origin[2] = m_bboxXY.origin[2] + m_bboxXY.dir3[2] / 2;
@@ -295,7 +295,7 @@ namespace TestViewer
             m_bboxXY.dir3[2] = 0;
 
             // get XZ plane (assumes 1st axis is "X" and 3rd is "Z")
-            m_bboxXZ = bbox;
+            m_bboxXZ = CloneGeom(bbox);
             m_bboxXZ.origin[0] = m_bboxXZ.origin[0] + m_bboxXZ.dir2[0] / 2;
             m_bboxXZ.origin[1] = m_bboxXZ.origin[1] + m_bboxXZ.dir2[1] / 2;
             m_bboxXZ.origin[2] = m_bboxXZ.origin[2] + m_bboxXZ.dir2[2] / 2;
@@ -307,7 +307,7 @@ namespace TestViewer
             m_bboxXZ.dir3[2] = 0;
 
             // get ZY plane (assumes 2nd axis is "Y" and 3rd is "Z")
-            m_bboxZY = bbox;
+            m_bboxZY = CloneGeom(bbox);
             m_bboxZY.origin[0] = bbox.origin[0] + bbox.dir1[0] / 2;
             m_bboxZY.origin[1] = bbox.origin[1] + bbox.dir1[1] / 2;
             m_bboxZY.origin[2] = bbox.origin[2] + bbox.dir1[2] / 2;
@@ -462,6 +462,16 @@ namespace TestViewer
             out_x = in_x * length / cur_len;
             out_y = in_y * length / cur_len;
             out_z = in_z * length / cur_len;
+        }
+
+        static Cart3dGeom CloneGeom (Cart3dGeom input)
+        {
+            Cart3dGeom copy;
+            copy.origin = (float[])input.origin.Clone();
+            copy.dir1 = (float[])input.dir1.Clone();
+            copy.dir2 = (float[])input.dir2.Clone();
+            copy.dir3 = (float[])input.dir3.Clone();
+            return copy;
         }
     }
 }
